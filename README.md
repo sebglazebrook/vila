@@ -29,6 +29,15 @@ Using Vila is pretty easy, basically you just hook up urls to resources using th
 
 Here's an example:
 
+```ruby
+# config/router.rb
+class Router < Vila::Router
+
+  resource :user
+
+end
+```
+
 
 Now you need to create a resource inside the project's resources dir:
 
@@ -39,6 +48,7 @@ touch resources/user.rb
 Now you need a method to handle each REST request type:
 
 ```ruby
+# resources/user.rb
 class User < Vila::Resource
 
   def get(params)
@@ -54,6 +64,9 @@ class User < Vila::Resource
   end
 
   def patch(id, params)
+  end
+
+  def delete(id, params)
   end
 
   def head(params)
