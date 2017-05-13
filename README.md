@@ -13,11 +13,15 @@ gem install 'vila'
 
 And then execute:
 
-    $ vila new <service_name>
+```sh
+vila new <service_name>
+```
 
 Now look inside the project that was created for you:
 
-    $ cd <service_name> && ls -la
+```sh
+cd <service_name> && ls -la
+```
 
 ## Usage
 
@@ -29,7 +33,7 @@ Here's an example:
 Now you need to create a resource inside the project's resources dir:
 
 ```sh
-  touch resources/user.rb
+touch resources/user.rb
 ```
 
 Now you need a method to handle each REST request type:
@@ -82,13 +86,25 @@ Example:
 
     # Below we return a hash containing the body of the response and a response code
     # this get's merged into the default hash which includes any headers we are returning
-    # if we didn't include a response code it would default to 201 as this is a post when generally
+    # if we didn't include a response code it would default to 201 as this is a post which generally
     # creates resources
 
     user = UserFactory.create(params[:user])
     { code: 201, body: user.to_json }
 
   end
+```
+
+Now we can start the app:
+
+```sh
+vila server
+```
+
+Any then just hit your resource to test it:
+
+```sh
+curl localhost:6969/users/
 ```
 
 ## Development
