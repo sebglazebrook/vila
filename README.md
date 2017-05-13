@@ -1,28 +1,95 @@
 # Vila
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/vila`. To experiment with that code, run `bin/console` for an interactive prompt.
+Vila help your create REST services in Ruby easily.
 
-TODO: Delete this and the text above, and describe your gem
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Install the gem locally:
 
-```ruby
-gem 'vila'
+```sh
+gem install 'vila'
 ```
 
 And then execute:
 
-    $ bundle
+    $ vila new <service_name>
 
-Or install it yourself as:
+Now look inside the project that was created for you:
 
-    $ gem install vila
+    $ cd <service_name> && ls -la
 
 ## Usage
 
-TODO: Write usage instructions here
+Using Vila is pretty easy, basically you just hook up urls to resources using the router.
+
+Here's an example:
+
+
+Now you need to create a resource inside the project's resources dir:
+
+```sh
+  touch resources/user.rb
+```
+
+Now you need a method to handle each REST request type:
+
+```ruby
+class User < Vila::Resource
+
+  def get(params)
+  end
+
+  def get_by_id(id, params)
+  end
+
+  def post(params)
+  end
+
+  def put(id, params)
+  end
+
+  def patch(id, params)
+  end
+
+  def head(params)
+  end
+
+  def options(params)
+  end
+
+end
+```
+
+Sweet, now each of these methods can return either the body of the response:
+
+ - Either a string or something that responds to `to_s`
+ - or a hash containing a code: body: headers: keys/values
+
+Example:
+
+```ruby
+  def get(params)
+
+    # Below we return the body of the reponse
+    # it will get a default http status code of 200 as it's a get request
+
+    UserRepo.all.to_json
+
+  end
+
+  def post(params)
+
+    # Below we return a hash containing the body of the response and a response code
+    # this get's merged into the default hash which includes any headers we are returning
+    # if we didn't include a response code it would default to 201 as this is a post when generally
+    # creates resources
+
+    user = UserFactory.create(params[:user])
+    { code: 201, body: user.to_json }
+
+  end
+```
 
 ## Development
 
