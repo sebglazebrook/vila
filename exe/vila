@@ -1,4 +1,3 @@
+require_relative "../lib/vila/cli"
 
-#!/usr/bin/env bash
-
-echo "here I am"
+Vila::Cli.new(ARGV).execute
