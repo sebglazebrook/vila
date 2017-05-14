@@ -54,7 +54,7 @@ class User < Vila::Resource
   def get(params)
   end
 
-  def get_by_id(id, params)
+  def get_with_id(id, params)
   end
 
   def post(params)
